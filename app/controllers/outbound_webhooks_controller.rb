@@ -5,7 +5,7 @@ class OutboundWebhooksController < ApplicationController
   # Pagination will be implemented next
   def index
     @title = "Outbound Webhook"
-    @outbound_webhook = OutboundWebhook.all
+    @outbound_webhooks = OutboundWebhook.all
   end
 
   def show
@@ -16,7 +16,7 @@ class OutboundWebhooksController < ApplicationController
     @outbound_webhook.destroy
 
     respond_to do |format|
-      format.html { redirect_to webhook_event_requests_url }
+      format.html { redirect_to outbound_webhooks_url }
       format.json { head :no_content }
     end
   end
@@ -58,15 +58,15 @@ class OutboundWebhooksController < ApplicationController
   end
 
   def delivery_outbound_messages
-    @outbound_webhook = OutboundWebhook.where(webhook_type: 'delivery').all
+    @outbound_webhooks = OutboundWebhook.where(webhook_type: 'delivery').all
   end
 
   def bounce_outbound_messages
-    @outbound_webhook = OutboundWebhook.where(webhook_type: 'bounce').all
+    @outbound_webhooks = OutboundWebhook.where(webhook_type: 'bounce').all
   end
 
   def opens_outbound_messages
-    @outbound_webhook = OutboundWebhook.where(webhook_type: 'opens').all
+    @outbound_webhooks = OutboundWebhook.where(webhook_type: 'opens').all
   end
 
   private
