@@ -10,32 +10,24 @@
   <li><%= link_to 'Opens webhooks', webhook_opens_path %></li>
 </ul>
 
-<h1>Outbound Messages - Opens</h1>
+<h1>Outbound Messages</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Payload</th>
-      <th></th>
-      <th></th>
+      <th>Tag</th>
+      <th>MessageID</th>
+      <th>ReceivedAt</th>
     </tr>
   </thead>
 
   <tbody>
-    <% if @outbound_webhooks.blank? %>
+    <% @messages.each do |msg| %>
       <tr>
-        <td> - </td>
-        <td> - </td>
-        <td> - </td>
+        <td><%= msg.tag %></td>
+        <td><%= msg.message_id %></td>
+        <td><%= msg.received_at.strftime("%m %B %y - %l:%M %p") %></td>
       </tr>
-    <% else %>
-      <% @outbound_webhooks.each do |outbound_webhook| %>
-        <tr>
-          <td><%= outbound_webhook.payload %></td>
-          <td><%= link_to 'Show', outbound_webhook %></td>
-          <td><%= link_to 'Destroy', outbound_webhook, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-        <% end %>
     <% end %>
   </tbody>
 </table>
