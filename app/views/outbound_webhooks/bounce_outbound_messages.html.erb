@@ -1,0 +1,40 @@
+<ul class="list">
+  <li><%= link_to 'Home', root_url %></li>
+</ul>
+
+<ul class="list">
+  <li><%= link_to 'Outbound Webhooks', outbound_webhooks_path %></li>
+  <li><%= link_to 'Delivery Webhooks', outbound_webhooks_delivery_path %></li>
+  <li><%= link_to 'Bounce webhooks', outbound_webhooks_bounce_path %></li>
+  <li><%= link_to 'Opens webhooks', outbound_webhooks_opens_path %></li>
+</ul>
+
+<h1>Outbound Messages - Bounce</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Payload</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @outbound_webhooks.blank? %>
+      <tr>
+        <td> - </td>
+        <td> - </td>
+        <td> - </td>
+      </tr>
+    <% else %>
+      <% @outbound_webhooks.each do |outbound_webhook| %>
+        <tr>
+          <td><%= outbound_webhook.payload %></td>
+          <td><%= link_to 'Show', outbound_webhook %></td>
+          <td><%= link_to 'Destroy', outbound_webhook, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
