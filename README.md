@@ -210,8 +210,8 @@ Postmark has [Messages API](http://developer.postmarkapp.com/developer-api-messa
       rails postmark_messages:import_past_outbound_messages --trace
     ```
   * Import records of the day. Possibly run rails task at 11:45PM (suggestion), before midnight.
-  ```
-    rails postmark_messages:import_outbound_messages_today --trace
-  ```
+    ```
+      rails postmark_messages:import_outbound_messages_today --trace
+    ```
 
 On going! ...
