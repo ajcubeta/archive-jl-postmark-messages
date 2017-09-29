@@ -4,7 +4,7 @@
 
 <ul class="list">
   <li><%= link_to 'Outbound Webhooks', outbound_webhooks_path %></li>
-  <li><%= link_to 'Delivery Webhooks', webhook_delivery_path %></li>
+  <li><%= link_to 'Delivery webhooks', webhook_delivery_path %></li>
   <li><%= link_to 'Bounce webhooks', webhook_bounce_path %></li>
   <li><%= link_to 'Opens webhooks', webhook_opens_path %></li>
 </ul>
@@ -22,22 +22,13 @@
   </thead>
 
   <tbody>
-    <% if @outbound_webhooks.blank? %>
+    <% @outbound_webhooks.each do |outbound_webhook| %>
       <tr>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+        <td><%= outbound_webhook.payload %></td>
+        <td><%= outbound_webhook.webhook_type %></td>
+        <td><%= link_to 'Show', outbound_webhook %></td>
+        <td><%= link_to 'Destroy', outbound_webhook, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    <% else %>
-      <% @outbound_webhooks.each do |outbound_webhook| %>
-        <tr>
-          <td><%= outbound_webhook.payload %></td>
-          <td><%= outbound_webhook.webhook_type %></td>
-          <td><%= link_to 'Show', outbound_webhook %></td>
-          <td><%= link_to 'Destroy', outbound_webhook, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
     <% end %>
   </tbody>
 </table>
