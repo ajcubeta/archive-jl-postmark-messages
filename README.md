@@ -205,11 +205,11 @@ Postmark has [Messages API](http://developer.postmarkapp.com/developer-api-messa
   * Recipient: ""
 
 # Import Messages to your Database using (rails || rake) command.
-  * Postmark retain email messages for the past past 45 days ago until present, query records multiple times within the day
+  * Postmark retain email messages for the past 45 days ago until present, we'll query records multiple times within the day using this rails command below.
     ```
       rails postmark_messages:import_past_outbound_messages --trace
     ```
-  * Import records of the day. Possibly run rails task at 11:45PM (suggestion), before midnight.
+  * By importing records of the day. Possibly we'll run rails task at 11:45PM (as suggestion), before midnight.
     ```
       rails postmark_messages:import_outbound_messages_today --trace
     ```

@@ -1,5 +1,6 @@
 class OutboundWebhooksController < ApplicationController
   protect_from_forgery except: [:delivery, :bounce, :opens]
+  before_action :authenticate
   before_action :set_outbound_webhook_event_request, only: [:show, :destroy]
 
   # Pagination will be implemented next

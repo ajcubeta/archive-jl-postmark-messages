@@ -1,7 +1,7 @@
 class OutboundMessage < ApplicationRecord
-  attr_accessor :message_id
-
-  validates_presence_of :message_id
+  # attr_accessor :message_id
+  #
+  # validates_presence_of :message_id
 
   def self.import_outbound_message(message)
     msg = OutboundMessage.where(message_id: message["MessageID"]).take
@@ -10,7 +10,7 @@ class OutboundMessage < ApplicationRecord
       begin
         outbound_message = OutboundMessage.new
         outbound_message.tag = message["Tag"] rescue ''
-        outbound_message.message_id = message["MessageID"] rescue nil
+        outbound_message.message_id = message["MessageID"] rescue ''
         outbound_message.to = message["To"] rescue []
         outbound_message.cc = message["Cc"] rescue []
         outbound_message.bcc = message["Bcc"] rescue []
@@ -31,6 +31,11 @@ class OutboundMessage < ApplicationRecord
         ErrorMailer.notify_sysadmin('Importing outbound messages from postmark error', e.message, e.backtrace).deliver
       end
     end
+  end
+
+  def normalize_to_receiver(email)
+    # From "{\"Email\"=>\"send2weiss@gmail.com\", \"Name\"=>\"\"}"
+    # To ['' <send2weiss@gmail.com>, '' <send2weiss@gmail.com>]
   end
 
   def self.query_postmark_outbound_messages(date_request, offset=0)

@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
+  before_action :authenticate, :except => [:index]
+
   def index
-    @title = "Welcome to Jobline"
+    @title = "Jobline Outbound Messages"
   end
 end
