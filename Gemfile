@@ -22,6 +22,7 @@ gem 'postmark-rails'
 gem 'rest-client'
 gem 'jbuilder'
 gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'jquery-rails'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
