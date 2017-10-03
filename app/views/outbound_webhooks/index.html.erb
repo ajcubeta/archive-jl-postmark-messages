@@ -1,22 +1,31 @@
-<h1><%= @title %></h1>
+<h2><%= @title %></h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Payload</th>
-      <th>Webhook Type</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="container">
+  <div class="row">
+    <div class="col"><b>Payload</b></div>
+    <div class="col-md-auto"><b>Webhook Type</b></div>
+    <div class="col col-lg-2">  </div>
+  </div>
+  <% if @webhooks.blank? %>
+    <div class="row">
+      <div class="col"> - </div>
+      <div class="col-md-auto"> - </div>
+      <div class="col col-lg-2"> - </div>
+    </div>
+  <% else %>
     <% @webhooks.each do |webhook| %>
-      <tr>
-        <td><%= webhook.payload %></td>
-        <td><%= webhook.webhook_type %></td>
-        <td><%= link_to 'Show', webhook %></td>
-      </tr>
+      <div class="row">
+        <div class="col">
+          <%= webhook.payload %>
+        </div>
+        <div class="col-md-auto">
+          <%= webhook.webhook_type %>
+        </div>
+        <div class="col col-lg-2">
+          <%= link_to 'Show', webhook %>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  <% end %>
+</div>
+<br />

@@ -15,48 +15,7 @@
 
   <body>
     <div class="container">
-      <div class="masthead">
-        <h3 class="text-muted">Jobline :: Postmark Messages</h3>
-        <nav class="navbar navbar-expand-md navbar-light bg-light rounded mb-3">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav text-md-center nav-justified w-100">
-              <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/outbound_messages">Messages</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/outbound_webhooks">Webhooks</a>
-              </li>
-
-              <!-- <li class="nav-item">
-                <a class="nav-link" href="/webhook/delivery">Delivery</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="/webhook/bounce">Bounce</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="/webhook/opens">Opens</a>
-              </li> -->
-
-              <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://archive-jl-postmark-messages.herokuapp.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filtered Webhooks</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                  <a class="dropdown-item" href="/webhook/delivery">Delivery</a>
-                  <a class="dropdown-item" href="/webhook/bounce">Bounce</a>
-                  <a class="dropdown-item" href="/webhook/opens">Opens</a>
-                </div>
-              </li> -->
-            </ul>
-          </div>
-        </nav>
-      </div>
+      <%= render 'layouts/header' %>
 
       <% flash.each do |name, msg| %>
         <%= content_tag(:div, msg, class: "alert alert-info") %>
@@ -68,7 +27,6 @@
       <footer class="footer">
         <p>&copy; Jobline 2017</p>
       </footer>
-
     </div> <!-- /container -->
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
