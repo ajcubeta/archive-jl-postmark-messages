@@ -25,7 +25,6 @@ class OutboundWebhooksController < ApplicationController
   def delivery
     request.body.rewind
     @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'delivery')
-    @title = "Outbound Webhook - Delivery"
 
     if @webhook.save
       render json: @webhook, status: :created
@@ -37,7 +36,6 @@ class OutboundWebhooksController < ApplicationController
   def bounce
     request.body.rewind
     @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'bounce')
-    @title = "Outbound Webhook - Bounce"
 
     if @webhook.save
       render json: @webhook, status: :created
@@ -49,7 +47,7 @@ class OutboundWebhooksController < ApplicationController
   def opens
     request.body.rewind
     @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'opens')
-    @title = "Outbound Webhook - Opens"
+
 
     if @webhook.save
       render json: @webhook, status: :created
@@ -59,14 +57,17 @@ class OutboundWebhooksController < ApplicationController
   end
 
   def delivery_outbound_messages
+    @title = "Outbound Webhooks - Delivery"
     @webhooks = OutboundWebhook.where(webhook_type: 'delivery').all
   end
 
   def bounce_outbound_messages
+    @title = "Outbound Webhooks - Bounce"
     @webhooks = OutboundWebhook.where(webhook_type: 'bounce').all
   end
 
   def opens_outbound_messages
+    @title = "Outbound Webhooks - Opens"
     @webhooks = OutboundWebhook.where(webhook_type: 'opens').all
   end
 
