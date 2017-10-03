@@ -5,8 +5,8 @@ class OutboundWebhooksController < ApplicationController
 
   # Pagination will be implemented next
   def index
-    @title = "Outbound Webhook"
-    @outbound_webhooks = OutboundWebhook.all
+    @title = "Outbound Webhooks"
+    @webhooks = OutboundWebhook.all
   end
 
   def show
@@ -14,7 +14,7 @@ class OutboundWebhooksController < ApplicationController
   end
 
   def destroy
-    @outbound_webhook.destroy
+    @webhook.destroy
 
     respond_to do |format|
       format.html { redirect_to outbound_webhooks_url }
@@ -24,55 +24,55 @@ class OutboundWebhooksController < ApplicationController
 
   def delivery
     request.body.rewind
-    @outbound_webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'delivery')
-    @title = "Outbound Webhook Delivery"
+    @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'delivery')
+    @title = "Outbound Webhook - Delivery"
 
-    if @outbound_webhook.save
-      render json: @outbound_webhook, status: :created
+    if @webhook.save
+      render json: @webhook, status: :created
     else
-      render json: @outbound_webhook.errors, status: :unprocessable_entity
+      render json: @webhook.errors, status: :unprocessable_entity
     end
   end
 
   def bounce
     request.body.rewind
-    @outbound_webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'bounce')
-    @title = "Outbound Webhook Bounce"
+    @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'bounce')
+    @title = "Outbound Webhook - Bounce"
 
-    if @outbound_webhook.save
-      render json: @outbound_webhook, status: :created
+    if @webhook.save
+      render json: @webhook, status: :created
     else
-      render json: @outbound_webhook.errors, status: :unprocessable_entity
+      render json: @webhook.errors, status: :unprocessable_entity
     end
   end
 
   def opens
     request.body.rewind
-    @outbound_webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'opens')
-    @title = "Outbound Webhook Opens"
+    @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'opens')
+    @title = "Outbound Webhook - Opens"
 
-    if @outbound_webhook.save
-      render json: @outbound_webhook, status: :created
+    if @webhook.save
+      render json: @webhook, status: :created
     else
-      render json: @outbound_webhook.errors, status: :unprocessable_entity
+      render json: @webhook.errors, status: :unprocessable_entity
     end
   end
 
   def delivery_outbound_messages
-    @outbound_webhooks = OutboundWebhook.where(webhook_type: 'delivery').all
+    @webhooks = OutboundWebhook.where(webhook_type: 'delivery').all
   end
 
   def bounce_outbound_messages
-    @outbound_webhooks = OutboundWebhook.where(webhook_type: 'bounce').all
+    @webhooks = OutboundWebhook.where(webhook_type: 'bounce').all
   end
 
   def opens_outbound_messages
-    @outbound_webhooks = OutboundWebhook.where(webhook_type: 'opens').all
+    @webhooks = OutboundWebhook.where(webhook_type: 'opens').all
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_outbound_webhook_event_request
-      @outbound_webhook = OutboundWebhook.find(params[:id])
+      @webhook = OutboundWebhook.find(params[:id])
     end
 end

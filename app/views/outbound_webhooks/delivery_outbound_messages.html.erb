@@ -1,4 +1,4 @@
-<h1>Outbound Messages - Delivery</h1>
+<h1><%= @title %></h1>
 
 <table>
   <thead>
@@ -10,20 +10,20 @@
   </thead>
 
   <tbody>
-    <% if @outbound_webhooks.blank? %>
+    <% if @webhooks.blank? %>
       <tr>
         <td> - </td>
         <td> - </td>
         <td> - </td>
       </tr>
     <% else %>
-      <% @outbound_webhooks.each do |outbound_webhook| %>
+      <% @webhooks.each do |webhook| %>
         <tr>
-          <td><%= outbound_webhook.payload %></td>
-          <td><%= link_to 'Show', outbound_webhook %></td>
-          <td><%= link_to 'Destroy', outbound_webhook, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= webhook.payload %></td>
+          <td><%= link_to 'Show', webhook %></td>
+          <td><%= link_to 'Destroy', webhook, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
-        <% end %>
+      <% end %>
     <% end %>
   </tbody>
 </table>
