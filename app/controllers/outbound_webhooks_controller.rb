@@ -6,7 +6,7 @@ class OutboundWebhooksController < ApplicationController
   # Pagination will be implemented next
   def index
     @title = "Outbound Webhooks"
-    @webhooks = OutboundWebhook.all
+    @webhooks = OutboundWebhook.paginate(:page => params[:page], :per_page => 20)
   end
 
   def show
