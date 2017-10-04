@@ -1,23 +1,33 @@
-<h2>Outbound Messages</h2>
-
-<%= will_paginate @messages %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Message ID</th>
-      <th>Tag</th>
-      <th>Received @</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @messages.each do |msg| %>
+<div class="container">
+  <h2><%= @title %></h2>
+  <p>Here's the list of messages from the past 45days.</p>
+  <div class="pages">
+    <%= will_paginate @messages, class: 'found' %>
+  </div>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= msg.message_id %></td>
-        <td><%= msg.tag %></td>
-        <td><%= msg.received_at.strftime("%m %B %Y %l:%M%P") %></td>
+        <th>Message ID</th>
+        <th>Tag</th>
+        <th>Received</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% if @messages.blank? %>
+        <tr>
+          <td> - </td>
+          <td> - </td>
+          <td> - </td>
+        </tr>
+      <% else %>
+        <% @messages.each do |msg| %>
+          <tr>
+            <td><%= msg.message_id %></td>
+            <td><%= msg.tag %></td>
+            <td><%= msg.received_at.strftime("%m %B %Y %l:%M%P") %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
