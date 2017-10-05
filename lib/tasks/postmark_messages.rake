@@ -150,6 +150,7 @@ namespace :postmark_messages do
       count += 1
       begin
         puts "#{count}) MessageID - #{msg.message_id}"
+        MessageDetail.import_outbound_message_detail(msg)
       rescue Exception => e
         puts "#{e.message}: #{e.backtrace.inspect}"
         errors << "#{e.message}: #{msg}"

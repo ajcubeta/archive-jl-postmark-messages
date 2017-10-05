@@ -1,8 +1,4 @@
 class OutboundMessage < ApplicationRecord
-  # attr_accessor :message_id
-  #
-  # validates_presence_of :message_id
-
   def self.import_outbound_message(message)
     msg = OutboundMessage.where(message_id: message["MessageID"]).take
 
