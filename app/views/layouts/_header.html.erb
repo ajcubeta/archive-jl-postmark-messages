@@ -7,15 +7,20 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav text-md-center nav-justified w-100">
         <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
+          <%= link_with_current("Home", root_path, /Home/, /index/) %>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/outbound_messages">Messages</a>
+          <%= link_with_current("Messages", outbound_messages_path, /OutboundMessage/, /index/) %>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/outbound_webhooks">Webhooks</a>
+          <%= link_with_current("Webhooks", outbound_webhooks_path, /OutboundWebhook/, /index/) %>
         </li>
       </ul>
     </div>
   </nav>
 </div>
+
+<!-- Old links -->
+<!-- <a class="nav-link" href="/">Home</a> -->
+<!-- <a class="nav-link" href="/outbound_messages">Messages</a> -->
+<!-- <a class="nav-link" href="/outbound_webhooks">Webhooks</a> -->
