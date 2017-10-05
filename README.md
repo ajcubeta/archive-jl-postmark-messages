@@ -213,5 +213,8 @@ Postmark has [Messages API](http://developer.postmarkapp.com/developer-api-messa
     ```
       rails postmark_messages:import_outbound_messages_today --trace
     ```
-
+  * Importing outbound message details
+    ```
+      rails postmark_messages:import_message_details --trace
+    ```
 On going! ...

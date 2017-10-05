@@ -1,13 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Payload:</strong>
-  <%= @webhook.payload %>
-</p>
-
-<p>
-  <strong>Webhook type:</strong>
-  <%= @webhook.webhook_type %>
-</p>
-
 <%= link_to 'Back', outbound_webhooks_path %>
+
+<br /><br />
+
+<h5>
+  <strong>Payload</strong>
+</h5>
+<p><%= @webhook.payload %></p>
+
+
+<h5>
+  Webhook type -
+  <strong><%= @webhook.webhook_type.titleize %></strong>
+</h5>
