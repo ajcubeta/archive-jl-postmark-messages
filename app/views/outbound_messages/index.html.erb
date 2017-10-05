@@ -1,37 +1,46 @@
 <div class="container">
+
   <h2><%= @title %></h2>
-  <p>Here's the list of messages from the past 45days.</p>
+
+  <p>Here's the list of messages imported from Postmark</p>
+
   <div class="pages">
     <%= will_paginate @messages, class: 'found' %>
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Subject</th>
-        <th>Tag</th>
-        <th>Message ID</th>
-        <th>Received</th>
 
-      </tr>
-    </thead>
-    <tbody>
-      <% if @messages.blank? %>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
         <tr>
-          <td> - </td>
-          <td> - </td>
-          <td> - </td>
-          <td> - </td>
+          <!-- <th>Recipient</th> -->
+          <th>Subject</th>
+          <th>Tag</th>
+          <th>Message ID</th>
+          <th>Date &amp; Time</th>
         </tr>
-      <% else %>
-        <% @messages.each do |msg| %>
+      </thead>
+      <tbody>
+        <% if @messages.blank? %>
           <tr>
-            <td><%= msg.subject %>
-            <td><%= msg.tag %></td>
-            <td><%= msg.message_id %></td>
-            <td><%= msg.received_at.strftime("%m %B %Y %l:%M%P") %></td>
+            <!-- <td> - </td> -->
+            <td> - </td>
+            <td> - </td>
+            <td> - </td>
+            <td> - </td>
           </tr>
+        <% else %>
+          <% @messages.each do |msg| %>
+            <tr>
+              <!-- <td><%= msg.message_recipients %> -->
+              <td><%= msg.subject %>
+              <td><%= msg.tag %></td>
+              <td><%= msg.message_id %></td>
+              <td><%= msg.received_at.strftime("%b %m, %l:%M:%S %p") %></td>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
+
 </div>

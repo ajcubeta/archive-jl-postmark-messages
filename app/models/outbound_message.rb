@@ -33,7 +33,7 @@ class OutboundMessage < ApplicationRecord
     end
   end
 
-  def normalize_to_receiver(email)
+  def message_recipients
     # From "{\"Email\"=>\"send2weiss@gmail.com\", \"Name\"=>\"\"}"
     # To ['' <send2weiss@gmail.com>, '' <send2weiss@gmail.com>]
   end
