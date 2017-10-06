@@ -34,6 +34,19 @@ class MessageDetail < ApplicationRecord
     end
   end
 
+  def open_tracking
+    (track_opens == true) ? "Enabled" : "Disabled"
+  end
+
+  def link_tracking
+    case track_links
+    when "HtmlAndText"
+      "Enabled for HTML and Text"
+    else
+      "Disabled for HTML and Text"
+    end
+  end
+
   def self.query_postmark_outbound_message_details(message_id)
     return nil if message_id.blank?
     message = `curl "https://api.postmarkapp.com/messages/outbound/#{message_id}/details" \

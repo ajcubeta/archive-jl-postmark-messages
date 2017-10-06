@@ -12,18 +12,14 @@
     <table class="table">
       <thead>
         <tr>
-          <!-- <th>Recipient</th> -->
           <th>Subject</th>
-          <th>Tag</th>
-          <th>Message ID</th>
-          <th>Date &amp; Time</th>
+          <th style="width:13%">Tag</th>
+          <th style="width:16%">Date &amp; Time</th>
         </tr>
       </thead>
       <tbody>
         <% if @messages.blank? %>
           <tr>
-            <!-- <td> - </td> -->
-            <td> - </td>
             <td> - </td>
             <td> - </td>
             <td> - </td>
@@ -31,16 +27,17 @@
         <% else %>
           <% @messages.each do |msg| %>
             <tr>
-              <!-- <td><%= msg.recipients %> -->
-              <td><%= msg.subject %>
-              <td><%= msg.tag %></td>
-              <td><%= msg.message_id %></td>
-              <td><%= msg.received_at.strftime("%b %m, %l:%M:%S %p") %></td>
+              <td>
+                <%= link_to "#{msg.subject}", outbound_message_path(id: msg.message_id) %><br />
+                <small>(MessageID: <%= msg.message_id %>)</small>
+                <!-- <small><%= time_ago_in_words(msg.received_at.strftime("%b %m, %l:%M:%S %p")) %></small> -->
+              </td>
+              <td><small><%= msg.tag %></small></td>
+              <td><small><%= msg.received_at.strftime("%b %m, %l:%M:%S %p") %></small></td>
             </tr>
           <% end %>
         <% end %>
       </tbody>
     </table>
   </div>
-
 </div>

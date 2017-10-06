@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Back', outbound_messages_path %>
+
+<br /><br />
+
+<p><strong>SUBJECT</strong>: <span><%= @message.subject %></span></p>
+
+<p><strong>FROM</strong>: <span><%= @message.from %></span></p>
+
+<p><strong>TAG</strong>: <span><%= @message.tag %></span></p>
+
+<p><strong>OPEN TRACKING</strong>: <span><%= @message.open_tracking %></span></p>
+
+<p><strong>LINK TRACKING</strong>: <span><%= @message.link_tracking %></span></p>
+
+<p><strong>MESSAGE</strong></p>
+
+<!-- <iframe>
+  <%= @message.html_body %>
+</iframe> -->
+
+<div class="content">
+  Test
+</div>
+
+
+<script type="text/javascript">
+  var $content = $( "#content" );
+  var str = "<%= @message.html_body %>";
+  var html = $.parseHTML( str ),
+  alert(html);
+</script>
