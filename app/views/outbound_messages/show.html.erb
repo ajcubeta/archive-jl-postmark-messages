@@ -14,20 +14,8 @@
 
 <p><strong>LINK TRACKING</strong>: <span><%= @message.link_tracking %></span></p>
 
-<p><strong>MESSAGE</strong></p>
+<p><strong>MESSAGE</strong>:</p>
 
-<!-- <iframe>
-  <%= @message.html_body %>
-</iframe> -->
-
-<div class="content">
-  Test
+<div class="row">
+  <iframe style="width: 50vw;height: 100vh;position: relative;" srcdoc="<%= @message.html_body %>" frameborder="0"></iframe>
 </div>
-
-
-<script type="text/javascript">
-  var $content = $( "#content" );
-  var str = "<%= @message.html_body %>";
-  var html = $.parseHTML( str ),
-  alert(html);
-</script>
