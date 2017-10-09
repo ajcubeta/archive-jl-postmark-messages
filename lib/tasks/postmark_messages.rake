@@ -66,7 +66,7 @@ namespace :postmark_messages do
     errors = []
 
     begin
-      45.downto(0) { |i|
+      10.downto(0) { |i|
         days_ago = Date.today - i
         date_request = days_ago.strftime("%Y-%m-%d")
         # Postmark API allow us to query upto 500 max record per request,
