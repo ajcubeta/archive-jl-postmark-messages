@@ -1,9 +1,9 @@
 class MessageDetail < ApplicationRecord
-  def self.import_outbound_message_detail(msg)
-    msg_detail = MessageDetail.where(message_id: msg.message_id).take
+  def self.import_outbound_message_detail(msg_id)
+    msg_detail = MessageDetail.where(message_id: msg_id).take
 
     unless msg_detail
-      detail = query_postmark_outbound_message_details(msg.message_id)
+      detail = query_postmark_outbound_message_details(msg_id)
 
       begin
         message_detail = MessageDetail.new
@@ -47,9 +47,9 @@ class MessageDetail < ApplicationRecord
     end
   end
 
-  def self.query_postmark_outbound_message_details(message_id)
-    return nil if message_id.blank?
-    message = `curl "https://api.postmarkapp.com/messages/outbound/#{message_id}/details" \
+  def self.query_postmark_outbound_message_details(msg_id)
+    return nil if msg_id.blank?
+    message = `curl "https://api.postmarkapp.com/messages/outbound/#{msg_id}/details" \
                 -X GET -H "Accept: application/json" \
                 -H "X-Postmark-Server-Token: #{ENV["POSTMARK_API_KEY"]}"`
 

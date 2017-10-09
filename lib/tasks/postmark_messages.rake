@@ -142,19 +142,19 @@ namespace :postmark_messages do
 
   task :import_message_details => :environment do
     errors = []
-    messages = OutboundMessage.all
-    puts "Count : #{messages.count}"
+    msg_ids = OutboundMessage.all.map(&:message_id)
+    puts "Count : #{msg_ids.count}"
 
     count = 0
-    messages.each { |msg|
+    msg_ids.each { |msg_id|
       count += 1
       begin
-        puts "#{count}) MessageID - #{msg.message_id}"
-        MessageDetail.import_outbound_message_detail(msg)
+        puts "#{count}) MessageID - #{msg_id}"
+        # MessageDetail.import_outbound_message_detail(msg_id)
       rescue Exception => e
         puts "#{e.message}: #{e.backtrace.inspect}"
-        errors << "#{e.message}: #{msg}"
-        ErrorMailer.notify_sysadmin("Importing email message details from postmark has error: #{msg.message_id}", e.message, e.backtrace, errors).deliver
+        errors << "#{e.message}: #{msg_id}"
+        ErrorMailer.notify_sysadmin("Importing email message details from postmark has error: #{msg_id}", e.message, e.backtrace, errors).deliver
       end
     }
   end

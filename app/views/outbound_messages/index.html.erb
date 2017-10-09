@@ -26,10 +26,10 @@
           <% @messages.each do |msg| %>
             <tr>
               <td>
-                <%= link_to "#{msg.subject}", outbound_message_path(id: msg.message_id) %><br />
-                <small>(MessageID: <%= msg.message_id %>)</small>
+                <%= link_to "#{msg.try(:subject)}", outbound_message_path(id: msg.message_id) %><br />
+                <small>(MessageID: <%= msg.try(:message_id) %>)</small>
               </td>
-              <td><small><%= msg.tag %></small></td>
+              <td><small><%= msg.try(:tag) %></small></td>
               <td><small><%= msg.received_at.strftime("%b %m, %l:%M:%S %p") %></small></td>
             </tr>
           <% end %>
