@@ -4,16 +4,16 @@
 
 <br /><br />
 
-<p><strong>SUBJECT</strong>: <span><%= @message.subject %></span></p>
+<p><small>SUBJECT</small>: <span><strong><%= @message.subject %></strong></span></p>
 
-<p><strong>FROM</strong>: <span><%= @message.from %></span></p>
+<p><small>FROM</strong></small>: <span><%= @message.from %></span></p>
 
-<p><strong>TAG</strong>: <span><%= @message.tag %></span></p>
+<p><small>TAG</strong></small>: <span><%= @message.tag %></span></p>
 
-<p><strong>OPEN TRACKING</strong>: <span><%= @message.open_tracking %></span></p>
+<p><small>OPEN TRACKING</strong></small>: <span><%= @message.open_tracking %></span></p>
 
-<p><strong>LINK TRACKING</strong>: <span><%= @message.link_tracking %></span></p>
+<p><small>LINK TRACKING</strong></small>: <span><%= @message.link_tracking %></span></p>
 
-<p><strong>MESSAGE</strong>:</p>
+<p><small>MESSAGE</strong></small>:</p>
 
 <iframe style="width: 50vw;height: 75vh;position: relative;" srcdoc="<%= @message.html_body %>" frameborder="0"></iframe>
