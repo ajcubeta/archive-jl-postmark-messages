@@ -1,6 +1,10 @@
 @import "mixins.css.scss";
 @import "bootstrap";
 
+.logo {
+  margin: 10px auto;
+}
+
 .pages {
   position: relative;
   float: right;

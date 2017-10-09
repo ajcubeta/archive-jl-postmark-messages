@@ -1,25 +1,15 @@
 class OutboundWebhooksController < ApplicationController
   protect_from_forgery except: [:delivery, :bounce, :opens]
   before_action :authenticate
-  before_action :set_outbound_webhook_event_request, only: [:show, :destroy]
 
-  # Pagination will be implemented next
   def index
     @title = "Outbound Webhooks"
-    @webhooks = OutboundWebhook.paginate(:page => params[:page], :per_page => 30)
+    @webhooks = OutboundWebhook.paginate(:page => params[:page], :per_page => 30).all
   end
 
   def show
     @title = "Outbound Webhook Show"
-  end
-
-  def destroy
-    @webhook.destroy
-
-    respond_to do |format|
-      format.html { redirect_to outbound_webhooks_url }
-      format.json { head :no_content }
-    end
+    @webhook = OutboundWebhook.find(params[:id])
   end
 
   def delivery
@@ -70,10 +60,4 @@ class OutboundWebhooksController < ApplicationController
     @title = "Outbound Webhooks - Opens"
     @webhooks = OutboundWebhook.where(webhook_type: 'opens').all
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_outbound_webhook_event_request
-      @webhook = OutboundWebhook.find(params[:id])
-    end
 end
