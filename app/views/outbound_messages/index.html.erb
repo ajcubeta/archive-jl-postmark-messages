@@ -1,7 +1,5 @@
 <div class="container">
-
   <h2><%= @title %></h2>
-
   <p>Here's the list of messages imported from Postmark</p>
 
   <div class="pages">
@@ -30,7 +28,6 @@
               <td>
                 <%= link_to "#{msg.subject}", outbound_message_path(id: msg.message_id) %><br />
                 <small>(MessageID: <%= msg.message_id %>)</small>
-                <!-- <small><%= time_ago_in_words(msg.received_at.strftime("%b %m, %l:%M:%S %p")) %></small> -->
               </td>
               <td><small><%= msg.tag %></small></td>
               <td><small><%= msg.received_at.strftime("%b %m, %l:%M:%S %p") %></small></td>
