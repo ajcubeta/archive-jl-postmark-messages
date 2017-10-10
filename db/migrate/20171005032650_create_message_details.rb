@@ -21,8 +21,8 @@ class CreateMessageDetails < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_index :outbound_messages, :tag
-    add_index :outbound_messages, :message_id
-    add_index :outbound_messages, :subject
+    add_index :message_details, :tag
+    add_index :message_details, :message_id
+    add_index :message_details, :subject
   end
 end
