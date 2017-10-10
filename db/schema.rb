@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20171005032650) do
   end
 
   create_table "outbound_webhooks", force: :cascade do |t|
-    t.text "payload"
+    t.jsonb "payload"
     t.text "webhook_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
