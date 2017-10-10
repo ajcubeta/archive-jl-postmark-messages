@@ -1,4 +1,44 @@
 class OutboundMessage < ApplicationRecord
+  def self.import_message(msg_id)
+    msg = OutboundMessage.where(message_id: msg_id).take
+
+    unless msg
+      message = MessageDetail.query_postmark_outbound_message_details(msg_id)
+
+      begin
+        outbound_message = OutboundMessage.new
+        outbound_message.tag = message["Tag"] rescue ''
+        outbound_message.message_id = message["MessageID"] rescue ''
+        outbound_message.to = message["To"] rescue []
+        outbound_message.cc = message["Cc"] rescue []
+        outbound_message.bcc = message["Bcc"] rescue []
+        outbound_message.recipients = message["Recipients"] rescue []
+        outbound_message.received_at = message["ReceivedAt"] rescue nil
+        outbound_message.from = message["From"] rescue ''
+        outbound_message.subject = message["Subject"] rescue ''
+        outbound_message.attachments = message["Attachments"] rescue []
+        outbound_message.status = message["Status"] rescue ''
+        outbound_message.track_opens = message["TrackOpens"] rescue nil
+        outbound_message.track_links = message["TrackLinks"] rescue ''
+
+        if outbound_message.save
+          puts "Imported MessageID: #{outbound_message.message_id}"
+          begin
+            MessageDetail.import_message_detail(outbound_message.message_id)
+            puts "Import Message Details using MessageID - #{outbound_message.message_id}"
+          rescue Exception => e
+            puts "#{e.message}: #{e.backtrace.inspect}"
+            errors << "#{e.message}: #{outbound_message.message_id}"
+            ErrorMailer.notify_sysadmin("Importing email message details from postmark has error: #{outbound_message.message_id}", e.message, e.backtrace, errors).deliver
+          end
+        end
+      rescue Exception => e
+        puts "#{e.message} \n\n #{e.backtrace.inspect}"
+        ErrorMailer.notify_sysadmin('Importing outbound messages from postmark error', e.message, e.backtrace).deliver
+      end
+    end
+  end
+
   def self.import_outbound_message(message)
     msg = OutboundMessage.where(message_id: message["MessageID"]).take
 
