@@ -21,6 +21,14 @@ class OutboundMessage < ApplicationRecord
 
         if outbound_message.save
           puts "Imported MessageID: #{outbound_message.message_id}"
+          begin
+            puts "Import Message Details using MessageID - #{outbound_message.message_id}"
+            MessageDetail.import_outbound_message_detail(outbound_message.message_id)
+          rescue Exception => e
+            puts "#{e.message}: #{e.backtrace.inspect}"
+            errors << "#{e.message}: #{outbound_message.message_id}"
+            ErrorMailer.notify_sysadmin("Importing email message details from postmark has error: #{outbound_message.message_id}", e.message, e.backtrace, errors).deliver
+          end
         end
       rescue Exception => e
         puts "#{e.message} \n\n #{e.backtrace.inspect}"
