@@ -28,7 +28,7 @@
           <% @webhooks.each do |webhook| %>
             <tr>
               <td><%= webhook.payload %></td>
-              <td><%= webhook.webhook_type.titleize %></td>
+              <td><%= webhook.webhook_type %></td>
               <td><%= link_to 'Show', webhook %></td>
             </tr>
           <% end %>

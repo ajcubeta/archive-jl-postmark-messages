@@ -14,7 +14,7 @@ class OutboundWebhooksController < ApplicationController
 
   def delivery
     request.body.rewind
-    @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'delivery')
+    @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'Delivered')
 
     if @webhook.save
       render json: @webhook, status: :created
@@ -25,7 +25,7 @@ class OutboundWebhooksController < ApplicationController
 
   def bounce
     request.body.rewind
-    @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'bounce')
+    @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'Bounced')
 
     if @webhook.save
       render json: @webhook, status: :created
@@ -36,8 +36,7 @@ class OutboundWebhooksController < ApplicationController
 
   def opens
     request.body.rewind
-    @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'opens')
-
+    @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'Opened')
 
     if @webhook.save
       render json: @webhook, status: :created
@@ -46,18 +45,18 @@ class OutboundWebhooksController < ApplicationController
     end
   end
 
-  def delivery_outbound_messages
-    @title = "Outbound Webhooks - Delivery"
-    @webhooks = OutboundWebhook.where(webhook_type: 'delivery').all
+  def delivered_outbound_messages
+    @title = "Outbound Webhooks - Delivered"
+    @webhooks = OutboundWebhook.where(webhook_type: 'Delivered').all
   end
 
-  def bounce_outbound_messages
-    @title = "Outbound Webhooks - Bounce"
-    @webhooks = OutboundWebhook.where(webhook_type: 'bounce').all
+  def bounced_outbound_messages
+    @title = "Outbound Webhooks - Bounced"
+    @webhooks = OutboundWebhook.where(webhook_type: 'Bounced').all
   end
 
-  def opens_outbound_messages
-    @title = "Outbound Webhooks - Opens"
-    @webhooks = OutboundWebhook.where(webhook_type: 'opens').all
+  def opened_outbound_messages
+    @title = "Outbound Webhooks - Opened"
+    @webhooks = OutboundWebhook.where(webhook_type: 'Opened').all
   end
 end
