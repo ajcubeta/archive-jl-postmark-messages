@@ -17,6 +17,8 @@ class OutboundWebhooksController < ApplicationController
     @webhook = OutboundWebhook.new(payload: request.body.read, webhook_type: 'Delivered')
 
     if @webhook.save
+      msg_id = @webhook.payload["MessageID"]
+      MessageDetail.import_outbound_message_detail(msg_id)
       render json: @webhook, status: :created
     else
       render json: @webhook.errors, status: :unprocessable_entity

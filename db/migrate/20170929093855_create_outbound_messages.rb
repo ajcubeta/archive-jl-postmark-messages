@@ -17,5 +17,9 @@ class CreateOutboundMessages < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    add_index :outbound_messages, :tag
+    add_index :outbound_messages, :message_id
+    add_index :outbound_messages, :subject
   end
 end

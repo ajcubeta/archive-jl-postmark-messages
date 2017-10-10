@@ -16,9 +16,13 @@ class CreateMessageDetails < ActiveRecord::Migration[5.1]
       t.string    :status
       t.boolean   :track_opens
       t.text      :track_links
-      t.text      :message_events, array: true, default: []
+      t.jsonb     :message_events
 
       t.timestamps
     end
+
+    add_index :outbound_messages, :tag
+    add_index :outbound_messages, :message_id
+    add_index :outbound_messages, :subject
   end
 end

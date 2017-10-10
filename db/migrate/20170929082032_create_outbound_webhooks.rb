@@ -6,5 +6,7 @@ class CreateOutboundWebhooks < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    add_index :outbound_webhooks, :webhook_type
   end
 end
