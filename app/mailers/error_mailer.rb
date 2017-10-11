@@ -1,6 +1,6 @@
 class ErrorMailer < ActionMailer::Base
   layout "mailer"
-  default from: "#{ENV["JL_INFO"]}"
+  default from: 'info@jobline.com.sg'
 
   ErrorMailer.delivery_method = :smtp
 
