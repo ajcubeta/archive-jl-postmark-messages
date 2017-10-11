@@ -18,6 +18,8 @@ class OutboundWebhooksController < ApplicationController
 
     if @webhook.save
       msg_id = @webhook.payload["MessageID"]
+
+
       MessageDetail.import_message_detail(msg_id)
       render json: @webhook, status: :created
     else

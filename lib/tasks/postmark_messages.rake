@@ -69,7 +69,7 @@ namespace :postmark_messages do
       10.downto(0) { |i|
         days_ago = Date.today - i
         date_request = days_ago.strftime("%Y-%m-%d")
-        
+
         first_set = OutboundMessage.query_postmark_outbound_messages(date_request)
         total_count = first_set["TotalCount"]
         puts "------------------------------------------------------"
@@ -143,6 +143,29 @@ namespace :postmark_messages do
         puts "#{e.message}: #{e.backtrace.inspect}"
         errors << "#{e.message}: #{msg_id}"
         ErrorMailer.notify_sysadmin("Importing email message details from postmark has error: #{msg_id}", e.message, e.backtrace, errors).deliver
+      end
+    }
+  end
+
+  task :import_messages_from_webhook => :environment do
+    errors = []
+    webhooks = OutboundWebhook.where(migrate: 'no').all
+    puts "Count : #{webhooks.count}"
+
+    count = 0
+    webhooks.each { |webhook|
+      count += 1
+      begin
+        msg_id = webhook.payload["MessageID"]
+        puts "#{count}) MessageID - #{msg_id}"
+        if msg_id
+          MessageDetail.import_message_detail(msg_id)
+          webhook.migrated!
+        end
+      rescue Exception => e
+        puts "#{e.message}: #{e.backtrace.inspect}"
+        errors << "#{e.message}: #{msg_id}"
+        ErrorMailer.notify_sysadmin("Importing email message details from webhook has error: #{msg_id}", e.message, e.backtrace, errors).deliver
       end
     }
   end

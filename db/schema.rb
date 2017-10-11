@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20171005032650) do
   create_table "outbound_webhooks", force: :cascade do |t|
     t.jsonb "payload"
     t.text "webhook_type"
+    t.string "migrate", default: "no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["webhook_type"], name: "index_outbound_webhooks_on_webhook_type"
