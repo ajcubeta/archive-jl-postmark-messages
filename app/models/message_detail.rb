@@ -1,6 +1,6 @@
 class MessageDetail < ApplicationRecord
-  def self.import_message_detail(message_id)
-    msg_detail = MessageDetail.where(message_id: message_id).take
+  def self.import_message_detail(msg_id)
+    msg_detail = MessageDetail.where(message_id: msg_id).take
 
     unless msg_detail
       detail = query_postmark_outbound_message_details(msg_id)
@@ -25,7 +25,23 @@ class MessageDetail < ApplicationRecord
         message_detail.message_events = detail["MessageEvents"] rescue []
 
         if message_detail.save
-          puts "Imported details of MessageID : #{message_detail.message_id}"
+          puts "Imported details of MessageID : #{msg_id}"
+          puts "Saving Message MessageID#{message_detail.message_id} to OutboundMessage"
+          outbound_message = OutboundMessage.new
+          outbound_message.tag = detail["Tag"] rescue ''
+          outbound_message.message_id = detail["MessageID"] rescue ''
+          outbound_message.to = detail["To"] rescue []
+          outbound_message.cc = detail["Cc"] rescue []
+          outbound_message.bcc = detail["Bcc"] rescue []
+          outbound_message.recipients = detail["Recipients"] rescue []
+          outbound_message.received_at = detail["ReceivedAt"] rescue nil
+          outbound_message.from = detail["From"] rescue ''
+          outbound_message.subject = detail["Subject"] rescue ''
+          outbound_message.attachments = detail["Attachments"] rescue []
+          outbound_message.status = detail["Status"] rescue ''
+          outbound_message.track_opens = detail["TrackOpens"] rescue nil
+          outbound_message.track_links = detail["TrackLinks"] rescue ''
+          outbound_message.save
         end
       rescue Exception => e
         puts "#{e.message} \n\n #{e.backtrace.inspect}"
